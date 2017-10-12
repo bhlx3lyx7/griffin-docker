@@ -1,0 +1,37 @@
+{
+  "name": "prof",
+
+  "process.type": "batch",
+
+  "data.sources": [
+    {
+      "name": "source",
+      "connectors": [
+        {
+          "type": "hive",
+          "version": "1.2",
+          "config": {
+            "database": "default",
+            "table.name": "demo_src"
+          }
+        }
+      ]
+    }
+  ],
+
+  "evaluateRule": {
+    "rules": [
+      {
+        "dsl.type": "griffin-dsl",
+        "dq.type": "profiling",
+        "rule": "select id.count() as cnt, age.max() as max_age from source",
+        "details": {
+          "profiling": {
+            "name": "count",
+            "persist.type": "metric"
+          }
+        }
+      }
+    ]
+  }
+}
