@@ -1,0 +1,24 @@
+env:
+  image: env
+  hostname: env
+  links:
+    - es
+  environment:
+    ES_HOSTNAME: es
+  ports:
+    - 32122:2122
+    - 38088:8088
+    - 33306:3306
+    - 38042:8042
+    - 39083:9083
+    - 38998:8998
+  tty: true
+  container_name: env
+
+es:
+  image: elasticsearch:5
+  hostname: es
+  ports:
+    - 39200:9200
+    - 39300:9300
+  container_name: es
