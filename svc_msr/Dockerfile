@@ -1,4 +1,4 @@
-FROM env
+FROM bhlx3lyx7/env:0.1.6
 MAINTAINER org.apache.griffin
 
 WORKDIR /root

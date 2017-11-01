@@ -1,5 +1,5 @@
 griffin:
-  image: svc_msr
+  image: bhlx3lyx7/svc_msr:0.1.6
   hostname: griffin
   links:
     - es
@@ -19,11 +19,10 @@ griffin:
   container_name: griffin
 
 es:
-  image: elasticsearch:5
+  image: bhlx3lyx7/elasticsearch
   hostname: es
   ports:
     - 39200:9200
-    - 39300:9300
   container_name: es
 
 zk:
