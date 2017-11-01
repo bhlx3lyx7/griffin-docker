@@ -3,8 +3,10 @@ griffin:
   hostname: griffin
   links:
     - es
+    - zk
   environment:
     ES_HOSTNAME: es
+    ZK_HOSTNAME: zk
   ports:
     - 32122:2122
     - 38088:8088
@@ -23,3 +25,11 @@ es:
     - 39200:9200
     - 39300:9300
   container_name: es
+
+zk:
+  image: zookeeper:3.5
+  hostname: zk
+  ports:
+    - 32181:2181
+  container_name: zk
+  restart: always

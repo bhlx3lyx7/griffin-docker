@@ -29,7 +29,9 @@ echo "spark.yarn.dist.files		hdfs:///home/spark_conf/hive-site.xml" >> $SPARK_HO
 
 cp $HIVE_HOME/conf/hive-site.xml $SPARK_HOME/conf/
 
-sed s/ES_HOSTNAME/$ES_HOSTNAME/ json/env.json.template > json/env.json
+sed s/ES_HOSTNAME/$ES_HOSTNAME/ json/env.json.template > json/env.json.temp
+sed s/ZK_HOSTNAME/$ZK_HOSTNAME/ json/env.json.temp > json/env.json
+rm json/env.json.temp
 hadoop fs -put json/env.json /griffin/json/
 
 $SPARK_HOME/sbin/start-all.sh
