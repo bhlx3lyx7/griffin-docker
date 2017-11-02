@@ -1,0 +1,73 @@
+{
+  "name": "streaming_prof",
+
+  "process.type": "streaming",
+
+  "data.sources": [
+    {
+      "name": "src",
+      "connectors": [
+        {
+          "type": "kafka",
+          "version": "0.8",
+          "config": {
+            "kafka.config": {
+              "bootstrap.servers": "KAFKA_HOSTNAME:9092",
+              "group.id": "griffin",
+              "auto.offset.reset": "largest",
+              "auto.commit.enable": "false"
+            },
+            "topics": "source",
+            "key.type": "java.lang.String",
+            "value.type": "java.lang.String"
+          },
+          "pre.proc": [
+            {
+              "dsl.type": "df-opr",
+              "name": "${this}",
+              "rule": "from_json",
+              "details": {
+                "df.name": "${this}"
+              }
+            }
+          ]
+        }
+      ],
+      "cache": {
+        "file.path": "hdfs:///griffin/streaming/dump/source",
+        "info.path": "source",
+        "ready.time.interval": "10s",
+        "ready.time.delay": "0",
+        "time.range": ["0", "0"]
+      }
+    }
+  ],
+
+  "evaluateRule": {
+    "rules": [
+      {
+        "dsl.type": "griffin-dsl",
+        "dq.type": "profiling",
+        "rule": "src.id.count(), src.id.max(), src.id.min()",
+        "details": {
+          "source": "src",
+          "profiling": {
+            "name": "prof",
+            "persist.type": "metric"
+          }
+        }
+      }, {
+        "dsl.type": "griffin-dsl",
+        "dq.type": "profiling",
+        "rule": "src.color, count(*) group by src.color",
+        "details": {
+          "source": "src",
+          "profiling": {
+            "name": "grp",
+            "persist.type": "metric"
+          }
+        }
+      }
+    ]
+  }
+}

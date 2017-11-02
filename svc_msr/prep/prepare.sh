@@ -16,4 +16,4 @@ hadoop fs -put measure/griffin-measure.jar /griffin/
 #service
 
 #json
-hadoop fs -put json/*config.json /griffin/json/
+hadoop fs -put json/*.json /griffin/json/

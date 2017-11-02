@@ -4,9 +4,11 @@ griffin:
   links:
     - es
     - zk
+    - kafka
   environment:
     ES_HOSTNAME: es
     ZK_HOSTNAME: zk
+    KAFKA_HOSTNAME: kafka
   ports:
     - 32122:2122
     - 38088:8088
@@ -32,3 +34,11 @@ zk:
     - 32181:2181
   container_name: zk
   restart: always
+
+kafka:
+  image: bhlx3lyx7/kafka
+  hostname: kafka
+  ports:
+    - 39092:9092
+  container_name: kafka
+  tty: true
