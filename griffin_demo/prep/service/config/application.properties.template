@@ -20,3 +20,11 @@ hive.metastore.dbname = default
 
 # kafka schema registry
 kafka.schema.registry.url = http://HOSTNAME:8181
+
+# schedule predicate job every 5 minutes and repeat 12 times at most
+#interval time unit s:second m:minute h:hour d:day,only support these four units
+predicate.job.interval = 5m
+predicate.job.repeat.count = 12
+
+# external properties directory location
+external.config.location =
