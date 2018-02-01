@@ -34,6 +34,11 @@ sed s/ZK_HOSTNAME/$ZK_HOSTNAME/ json/env.json.temp > json/env.json
 rm json/env.json.temp
 hadoop fs -put json/env.json /griffin/json/
 
+sed s/KAFKA_HOSTNAME/$KAFKA_HOSTNAME/ json/streaming-accu-config.json.template > json/streaming-accu-config.json
+sed s/KAFKA_HOSTNAME/$KAFKA_HOSTNAME/ json/streaming-prof-config.json.template > json/streaming-prof-config.json
+hadoop fs -put json/streaming-accu-config.json /griffin/json/
+hadoop fs -put json/streaming-prof-config.json /griffin/json/
+
 $SPARK_HOME/sbin/start-all.sh
 
 nohup hive --service metastore > metastore.log &
