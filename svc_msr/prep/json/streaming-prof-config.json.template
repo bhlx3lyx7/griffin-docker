@@ -48,24 +48,19 @@
       {
         "dsl.type": "griffin-dsl",
         "dq.type": "profiling",
+        "name": "prof",
         "rule": "src.id.count(), src.id.max(), src.id.min()",
-        "details": {
-          "source": "src",
-          "profiling": {
-            "name": "prof",
-            "persist.type": "metric"
-          }
+        "metric": {
+          "name": "prof"
         }
       }, {
         "dsl.type": "griffin-dsl",
         "dq.type": "profiling",
+        "name": "color-group",
         "rule": "src.color, count(*) group by src.color",
-        "details": {
-          "source": "src",
-          "profiling": {
-            "name": "grp",
-            "persist.type": "metric"
-          }
+        "metric": {
+          "name": "color-group",
+          "collect.type": "array"
         }
       }
     ]

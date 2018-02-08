@@ -84,21 +84,20 @@
       {
         "dsl.type": "griffin-dsl",
         "dq.type": "accuracy",
+        "name": "accu",
         "rule": "src.id = tgt.id AND src.name = tgt.name AND src.color = tgt.color AND src.time = tgt.time",
         "details": {
           "source": "src",
           "target": "tgt",
-          "miss.records": {
-            "name": "miss.records",
-            "persist.type": "record"
-          },
-          "accuracy": {
-            "name": "accu",
-            "persist.type": "metric"
-          },
           "miss": "miss_count",
           "total": "total_count",
           "matched": "matched_count"
+        },
+        "metric": {
+          "name": "accu"
+        },
+        "record": {
+          "name": "missRecords"
         }
       }
     ]

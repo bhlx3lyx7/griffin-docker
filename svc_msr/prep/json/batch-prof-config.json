@@ -24,12 +24,10 @@
       {
         "dsl.type": "griffin-dsl",
         "dq.type": "profiling",
+        "name": "prof",
         "rule": "src.id.count() AS id_count, src.age.max() AS age_max, src.desc.length().max() AS desc_length_max",
-        "details": {
-          "profiling": {
-            "name": "prof",
-            "persist.type": "metric"
-          }
+        "metric": {
+          "name": "prof"
         }
       }
     ]
