@@ -51,7 +51,9 @@ nohup ./gen-hive-data.sh > hive-data.log &
 cd /root
 
 #start service
-sed s/HOSTNAME/$HOSTNAME/ /root/service/config/application.properties.template > /root/service/config/application.properties
+sed s/ES_HOSTNAME/$ES_HOSTNAME/ /root/service/config/application.properties.template > /root/service/config/application.properties.temp
+sed s/HOSTNAME/$HOSTNAME/ /root/service/config/application.properties.temp > /root/service/config/application.properties
+rm /root/service/config/application.properties.temp
 cd /root/service
 nohup java -jar service.jar > service.log &
 cd /root

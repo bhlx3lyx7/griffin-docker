@@ -34,3 +34,12 @@ ldap.domain=<account domain>
 ldap.dc=<domain components config>
 ldap.connect-timeout=<connect timeout config>
 ldap.read-timeout=<read timeout config>
+
+# schedule predicate job every 5 minutes and repeat 12 times at most
+#interval time unit m:minute h:hour d:day,only support these three units
+predicate.job.interval = 5m
+predicate.job.repeat.count = 12
+
+# elasticsearch
+elasticsearch.host = ES_HOSTNAME
+elasticsearch.port = 9200
