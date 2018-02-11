@@ -12,6 +12,10 @@ hour=${cur_date:8:2}
 partition_date="dt='$dt',hour='$hour'"
 sed s/PARTITION_DATE/$partition_date/ ./insert-data.hql.template > insert-data.hql
 hive -f insert-data.hql
+src_done_path=/griffin/data/batch/demo_src/dt=${dt}/hour=${hour}/_DONE
+tgt_done_path=/griffin/data/batch/demo_tgt/dt=${dt}/hour=${hour}/_DONE
+hadoop fs -touchz ${src_done_path}
+hadoop fs -touchz ${tgt_done_path}
 echo "insert data [$partition_date] done"
 
 #next hours
@@ -26,6 +30,10 @@ do
   partition_date="dt='$dt',hour='$hour'"
   sed s/PARTITION_DATE/$partition_date/ ./insert-data.hql.template > insert-data.hql
   hive -f insert-data.hql
+  src_done_path=/griffin/data/batch/demo_src/dt=${dt}/hour=${hour}/_DONE
+  tgt_done_path=/griffin/data/batch/demo_tgt/dt=${dt}/hour=${hour}/_DONE
+  hadoop fs -touchz ${src_done_path}
+  hadoop fs -touchz ${tgt_done_path}
   echo "insert data [$partition_date] done"
   sleep 3600
 done
