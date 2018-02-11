@@ -5,6 +5,7 @@ hive -f create-table.hql
 echo "create table done"
 
 #current hour
+./gen_demo_data.sh
 cur_date=`date +%Y%m%d%H`
 dt=${cur_date:0:8}
 hour=${cur_date:8:2}
@@ -17,6 +18,7 @@ echo "insert data [$partition_date] done"
 set +e
 while true
 do
+  ./gen_demo_data.sh
   cur_date=`date +%Y%m%d%H`
   next_date=`date -d "+1hour" '+%Y%m%d%H'`
   dt=${next_date:0:8}
