@@ -1,0 +1,35 @@
+{
+  "name": "batch_prof",
+
+  "process.type": "batch",
+
+  "data.sources": [
+    {
+      "name": "src",
+      "connectors": [
+        {
+          "type": "hive",
+          "version": "1.2",
+          "config": {
+            "database": "default",
+            "table.name": "demo_tgt"
+          }
+        }
+      ]
+    }
+  ],
+
+  "evaluate.rule": {
+    "rules": [
+      {
+        "dsl.type": "griffin-dsl",
+        "dq.type": "profiling",
+        "name": "prof",
+        "rule": "src.id.count() AS id_count, src.age.max() AS age_max, src.desc.length().max() AS desc_length_max",
+        "metric": {
+          "name": "prof"
+        }
+      }
+    ]
+  }
+}
