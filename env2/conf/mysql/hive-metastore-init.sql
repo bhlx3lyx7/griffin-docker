@@ -1,0 +1,6 @@
+CREATE DATABASE metastore;
+USE metastore;
+
+CREATE USER 'hive'@'%' IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON metastore.* TO 'hive'@'%';
+FLUSH PRIVILEGES;

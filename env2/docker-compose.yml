@@ -1,0 +1,28 @@
+env:
+  image: env2
+  hostname: env2
+  links:
+    - es
+  environment:
+    ES_HOSTNAME: es
+  volumes:
+    - /var/lib/mysql
+  ports:
+    - 32122:2122
+    - 38088:8088
+    - 33306:3306
+    - 38042:8042
+    - 39083:9083
+    - 38998:8998
+    - 38080:8080
+    - 35432:5432
+  tty: true
+  container_name: env2
+
+es:
+  image: bhlx3lyx7/elasticsearch
+  hostname: es
+  ports:
+    - 39200:9200
+    - 39300:9300
+  container_name: es

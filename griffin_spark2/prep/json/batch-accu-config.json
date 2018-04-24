@@ -1,0 +1,58 @@
+{
+  "name": "batch_accu",
+
+  "process.type": "batch",
+
+  "data.sources": [
+    {
+      "name": "src",
+      "connectors": [
+        {
+          "type": "hive",
+          "version": "1.2",
+          "config": {
+            "database": "default",
+            "table.name": "demo_src"
+          }
+        }
+      ]
+    }, {
+      "name": "tgt",
+      "connectors": [
+        {
+
+          "type": "hive",
+          "version": "1.2",
+          "config": {
+            "database": "default",
+            "table.name": "demo_tgt"
+          }
+        }
+      ]
+    }
+  ],
+
+  "evaluate.rule": {
+    "rules": [
+      {
+        "dsl.type": "griffin-dsl",
+        "dq.type": "accuracy",
+        "name": "accu",
+        "rule": "src.id = tgt.id AND src.age = tgt.age AND src.desc = tgt.desc",
+        "details": {
+          "source": "src",
+          "target": "tgt",
+          "miss": "miss_count",
+          "total": "total_count",
+          "matched": "matched_count"
+        },
+        "metric": {
+          "name": "accu"
+        },
+        "record": {
+          "name": "missRecords"
+        }
+      }
+    ]
+  }
+}
