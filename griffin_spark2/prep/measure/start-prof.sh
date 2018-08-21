@@ -2,4 +2,4 @@ spark-submit --class org.apache.griffin.measure.Application --master yarn --depl
 --driver-memory 1g --executor-memory 1g --num-executors 2 \
 --conf spark.yarn.executor.memoryOverhead=512 \
 griffin-measure.jar \
-/griffin/json/env.json /griffin/json/streaming-prof-config.json hdfs,hdfs
+hdfs:///griffin/json/env.json hdfs:///griffin/json/streaming-prof-config.json

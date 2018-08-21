@@ -6,6 +6,7 @@
   "data.sources": [
     {
       "name": "src",
+      "baseline": true,
       "connectors": [
         {
           "type": "hive",
@@ -37,7 +38,7 @@
       {
         "dsl.type": "griffin-dsl",
         "dq.type": "accuracy",
-        "name": "accu",
+        "out.dataframe.name": "accu",
         "rule": "src.id = tgt.id AND src.age = tgt.age AND src.desc = tgt.desc",
         "details": {
           "source": "src",
@@ -46,13 +47,19 @@
           "total": "total_count",
           "matched": "matched_count"
         },
-        "metric": {
-          "name": "accu"
-        },
-        "record": {
-          "name": "missRecords"
-        }
+        "out": [
+          {
+            "type": "metric",
+            "name": "accu"
+          },
+          {
+            "type": "record",
+            "name": "missRecords"
+          }
+        ]
       }
     ]
-  }
+  },
+
+  "sinks": ["CONSOLE", "HDFS"]
 }

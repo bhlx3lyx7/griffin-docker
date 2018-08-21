@@ -6,10 +6,12 @@
   "data.sources": [
     {
       "name": "src",
+      "baseline": true,
       "connectors": [
         {
           "type": "kafka",
           "version": "0.8",
+          "dataframe.name": "this",
           "config": {
             "kafka.config": {
               "bootstrap.servers": "KAFKA_HOSTNAME:9092",
@@ -24,21 +26,19 @@
           "pre.proc": [
             {
               "dsl.type": "df-opr",
-              "name": "${this}",
-              "rule": "from_json",
-              "details": {
-                "df.name": "${this}"
-              }
+              "rule": "from_json"
             }
           ]
         }
       ],
-      "cache": {
+      "checkpoint": {
+        "type": "json",
         "file.path": "hdfs:///griffin/streaming/dump/source",
         "info.path": "source",
         "ready.time.interval": "10s",
         "ready.time.delay": "0",
-        "time.range": ["-1m", "0"]
+        "time.range": ["-5m", "0"],
+        "updatable": true
       }
     }, {
       "name": "tgt",
@@ -46,6 +46,7 @@
         {
           "type": "kafka",
           "version": "0.8",
+          "dataframe.name": "this",
           "config": {
             "kafka.config": {
               "bootstrap.servers": "KAFKA_HOSTNAME:9092",
@@ -60,16 +61,13 @@
           "pre.proc": [
             {
               "dsl.type": "df-opr",
-              "name": "${this}",
-              "rule": "from_json",
-              "details": {
-                "df.name": "${this}"
-              }
+              "rule": "from_json"
             }
           ]
         }
       ],
-      "cache": {
+      "checkpoint": {
+        "type": "json",
         "file.path": "hdfs:///griffin/streaming/dump/target",
         "info.path": "target",
         "ready.time.interval": "10s",
@@ -84,7 +82,7 @@
       {
         "dsl.type": "griffin-dsl",
         "dq.type": "accuracy",
-        "name": "accu",
+        "out.dataframe.name": "accu",
         "rule": "src.id = tgt.id AND src.name = tgt.name AND src.color = tgt.color AND src.time = tgt.time",
         "details": {
           "source": "src",
@@ -93,13 +91,19 @@
           "total": "total_count",
           "matched": "matched_count"
         },
-        "metric": {
-          "name": "accu"
-        },
-        "record": {
-          "name": "missRecords"
-        }
+        "out":[
+          {
+            "type":"metric",
+            "name": "accu"
+          },
+          {
+            "type":"record",
+            "name": "missRecords"
+          }
+        ]
       }
     ]
-  }
+  },
+
+  "sinks": ["CONSOLE", "HDFS"]
 }

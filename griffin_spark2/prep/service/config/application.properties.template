@@ -68,3 +68,8 @@ elasticsearch.port = 9200
 elasticsearch.scheme = http
 # elasticsearch.user = user
 # elasticsearch.password = password
+
+# livy
+livy.uri=http://HOSTNAME:8998/batches
+# yarn url
+yarn.uri=http://HOSTNAME:8088

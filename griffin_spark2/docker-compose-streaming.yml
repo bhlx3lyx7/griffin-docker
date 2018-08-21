@@ -41,6 +41,8 @@ griffin:
 es:
   image: bhlx3lyx7/elasticsearch
   hostname: es
+  environment:
+    - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
   ports:
     - 39200:9200
     - 39300:9300

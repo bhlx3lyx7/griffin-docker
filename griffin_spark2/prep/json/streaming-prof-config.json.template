@@ -10,6 +10,7 @@
         {
           "type": "kafka",
           "version": "0.8",
+          "dataframe.name": "this",
           "config": {
             "kafka.config": {
               "bootstrap.servers": "KAFKA_HOSTNAME:9092",
@@ -24,16 +25,13 @@
           "pre.proc": [
             {
               "dsl.type": "df-opr",
-              "name": "${this}",
-              "rule": "from_json",
-              "details": {
-                "df.name": "${this}"
-              }
+              "rule": "from_json"
             }
           ]
         }
       ],
-      "cache": {
+      "checkpoint": {
+        "type": "json",
         "file.path": "hdfs:///griffin/streaming/dump/source",
         "info.path": "source",
         "ready.time.interval": "10s",
@@ -48,21 +46,29 @@
       {
         "dsl.type": "griffin-dsl",
         "dq.type": "profiling",
-        "name": "prof",
+        "out.dataframe.name": "prof",
         "rule": "src.id.count(), src.id.max(), src.id.min()",
-        "metric": {
-          "name": "prof"
-        }
+        "out":[
+          {
+            "type": "metric",
+            "name": "prof"
+          }
+        ]
       }, {
         "dsl.type": "griffin-dsl",
         "dq.type": "profiling",
-        "name": "color-group",
+        "out.dataframe.name": "color-group",
         "rule": "src.color, count(*) group by src.color",
-        "metric": {
-          "name": "color-group",
-          "collect.type": "array"
-        }
+        "out":[
+          {
+            "type": "metric",
+            "name": "color-group",
+            "flatten": "array"
+          }
+        ]
       }
     ]
-  }
+  },
+
+  "sinks": ["CONSOLE", "HDFS"]
 }
