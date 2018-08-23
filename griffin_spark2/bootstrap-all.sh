@@ -55,7 +55,11 @@ cd /root
 #start service
 sed s/ES_HOSTNAME/$ES_HOSTNAME/ /root/service/config/application.properties.template > /root/service/config/application.properties.temp
 sed s/HOSTNAME/$HOSTNAME/ /root/service/config/application.properties.temp > /root/service/config/application.properties
-rm /root/service/config/application.properties.temp
+sed s/ES_HOSTNAME/$ES_HOSTNAME/ /root/service/config/env_batch.json.template > /root/service/config/env_batch.json
+sed s/ES_HOSTNAME/$ES_HOSTNAME/ /root/service/config/env_streaming.json.template > /root/service/config/env_streaming.json.temp
+sed s/ZK_HOSTNAME/$ZK_HOSTNAME/ /root/service/config/env_streaming.json.temp > /root/service/config/env_streaming.json
+
+rm /root/service/config/*.temp
 cd /root/service
 nohup java -jar service.jar > service.log &
 cd /root

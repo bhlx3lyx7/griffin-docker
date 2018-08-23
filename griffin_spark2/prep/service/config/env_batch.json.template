@@ -1,0 +1,32 @@
+{
+  "spark": {
+    "log.level": "WARN"
+  },
+  "sinks": [
+    {
+      "type": "CONSOLE",
+      "config": {
+        "max.log.lines": 10
+      }
+    },
+    {
+      "type": "HDFS",
+      "config": {
+        "path": "hdfs:///griffin/persist",
+        "max.persist.lines": 10000,
+        "max.lines.per.file": 10000
+      }
+    },
+    {
+      "type": "ELASTICSEARCH",
+      "config": {
+        "method": "post",
+        "api": "http://ES_HOSTNAME:9200/griffin/accuracy",
+        "connection.timeout": "1m",
+        "retry": 10
+      }
+    }
+  ],
+  "griffin.checkpoint": []
+}
+
