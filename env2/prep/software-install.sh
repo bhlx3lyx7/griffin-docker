@@ -31,7 +31,7 @@ tar -xvf spark-2.2.1-bin-hadoop2.6.tgz
 ln -s spark-2.2.1-bin-hadoop2.6 spark
 
 # hive
-wget https://www.apache.org/dist/hive/hive-2.2.0/apache-hive-2.2.0-bin.tar.gz
+wget https://archive.apache.org/dist/hive/hive-2.2.0/apache-hive-2.2.0-bin.tar.gz
 tar -xvf apache-hive-2.2.0-bin.tar.gz
 ln -s apache-hive-2.2.0-bin hive
 
